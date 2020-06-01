@@ -20,7 +20,7 @@ class WordNetDomains:
         # load WordNet2.0
         self.wn = WordNetCorpusReader(f'{wordnet_home}/WordNet-2.0/dict', 'WordNet-2.0/dict')
 
-        # load WordNetDomains
+        # load WordNetDomains (based on https://stackoverflow.com/a/21904027/8759307)
         self.domain2synsets = defaultdict(list)
         self.synset2domains = defaultdict(list)
         for i in open(f'{wordnet_home}/wn-domains-3.2/wn-domains-3.2-20070223', 'r'):
