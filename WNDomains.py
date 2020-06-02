@@ -30,14 +30,18 @@ class WordNetDomains:
             for d in doms:
                 self.domain2synsets[d].append(ssid)
 
-    def get_domains(self, word, pos=None):
+    def get_domains(self, word, pos=None, first_sense_only=False):
         """
         Gets a set of domains associated with a given word, possibly restricted to a specific pos
         :param word: the word (string)
         :param pos: the part-of-speech of the word (optional)
+        :param first_sense_only: if True, only the first sense concurs in the set of domains. The first sense returned
+        by WordNet is assumed to be the most common one, and is a typical baseline in tasks of word sense disambiguation.
         :return: a set of domains (strings) linked to the word according to WordNetDomains
         """
         word_synsets = self.wn.synsets(word, pos=pos)
+        if first_sense_only:
+            word_synsets = word_synsets[:1]
         domains = []
         for synset in word_synsets:
             domains.extend(self.get_domains_from_synset(synset))
